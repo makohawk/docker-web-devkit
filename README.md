@@ -86,9 +86,12 @@ docker-web-devkit/
 │   └── mysql/
 │       ├── Dockerfile
 │       └── my.cnf
-├── src/                    # PHPアプリケーションコード
-├── tests/                  # テストファイル
-├── .env.example           # 環境変数テンプレート
+├── src/                         # PHPアプリケーションコード
+│   ├── index.php               # (例: 初期アプリケーションのエントリーポイント)
+│   └── tests/                  # テストファイル (srcディレクトリ内)
+│       └── unit/               # ユニットテスト用のディレクトリ
+│           └── SampleTest.php  # サンプルテストファイル
+├── .env.example                 # 環境変数テンプレート
 ├── .gitignore
 ├── docker-compose.yml
 └── README.md
