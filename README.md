@@ -21,7 +21,7 @@ cd docker-web-devkit
 # 2. 環境変数を設定
 cp .env.example .env
 
-# 3. コンテナをビルドして起動
+# 3. コンテナをビルドして起動（初回のみビルド）
 docker compose up -d --build
 ```
 
