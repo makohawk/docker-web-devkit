@@ -22,8 +22,7 @@ cd docker-web-devkit
 cp .env.example .env
 
 # 3. コンテナをビルドして起動
-docker compose build
-docker compose up -d
+docker compose up -d --build
 ```
 
 ## コンテナの管理
@@ -63,6 +62,24 @@ docker compose exec php bash
 ```bash
 # (PHPコンテナ内で)
 
+# composer.json を作成
+cat > composer.json << 'EOF'
+{
+    "require": {
+        "php": ">=8.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/",
+            "Tests\\": "src/tests/"
+        }
+    }
+}
+EOF
+
 # 依存パッケージをインストール
 composer install
 
@@ -85,37 +102,13 @@ npm install
 npm install <package-name>
 ```
 
-## PHPUnitのインストール
+## PHPUnitのセットアップ
 
 PHPUnitをプロジェクトに導入し、`phpunit`コマンドのエイリアスを設定する手順です。
 
 ```bash
 # PHPコンテナ内で作業します
 docker compose exec php bash
-
-# プロジェクトルートに移動
-cd /var/www/html
-
-# composer.json がまだない場合、以下のコマンドで作成
-cat > composer.json << 'EOF'
-{
-    "require": {
-        "php": ">=8.3"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^10.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "App\\": "src/",
-            "Tests\\": "src/tests/"
-        }
-    }
-}
-EOF
-
-# Composerを使ってPHPUnitをインストール
-composer install
 
 # `phpunit`コマンドのエイリアスを永続化設定
 echo "alias phpunit='vendor/bin/phpunit'" >> ~/.bashrc
