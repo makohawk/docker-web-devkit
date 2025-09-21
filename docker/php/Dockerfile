@@ -15,7 +15,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libzip-dev \
     locales \
     g++ \
-    nodejs \
+    && curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
+    && apt-get install -y nodejs \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && echo "ja_JP.UTF-8 UTF-8" > /etc/locale.gen \
